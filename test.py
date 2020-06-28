@@ -26,9 +26,7 @@ def todo(hoja):
         cargada = False
 
         while not cargada:
-            print(driver.execute_script('return document.readyState;'))
             if driver.execute_script('return document.readyState;') == 'complete':
-                print(driver.execute_script('return document.readyState;'))
                 cargada = True
 
         direccion = driver.find_element_by_xpath(".//a[text()='Dirección']")
