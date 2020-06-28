@@ -8,14 +8,19 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from openpyxl import load_workbook
 
-def todo():
+def todo(hoja):
     listaTelefonos = []
-    workbook = load_workbook('datos.xlsx', read_only=False)
-    sheet = workbook['hoja']
+    sheet = ''
+    try:
+        workbook = load_workbook('datos.xlsx', read_only=False)
+        sheet = workbook[hoja]
+    except:
+        print('Nombre de hoja incorrecto. \n==== EJECUCIÓN FINALIZADA ====')
+        exit()
     driver = webdriver.Chrome(executable_path="drivers/chromedriver")
     driver.get('https://www.telexplorer.cl/')
     for row in sheet.iter_rows():
-        print(row[0].value)
+        print('Buscando ' + row[0].value + ' ' + str(row[1].value))
         actionChains = ActionChains(driver)
 
         direccion = driver.find_element_by_xpath(".//a[text()='Dirección']")
@@ -47,17 +52,19 @@ def todo():
             localidad.select_by_value('1060419')
 
             listaTelefonos.append(driver.find_element_by_class_name('resultado_telefono').text)
+            print('> Teléfono encontrado\n')
         except:
             listaTelefonos.append('-')
+            print('> Direccion sin teléfono\n')
 
         driver.get('https://www.telexplorer.cl/')
 
     return listaTelefonos
 
-def guardarDatos(numeros):
+def guardarDatos(numeros, hoja):
     i = 0
     workbook = load_workbook('datos.xlsx', read_only=False)
-    sheet = workbook['hoja']
+    sheet = workbook[hoja]
     for tel in numeros:
         i += 1
         celda = sheet.cell(row = i, column = 3)
@@ -65,9 +72,27 @@ def guardarDatos(numeros):
 
     workbook.save('datos.xlsx') 
 
-listado = todo()
-guardarDatos(listado)
-print(listado)
+def resumen(listado):
+    sinTelefono = 0
+
+    for telefono in listado:
+        if telefono == '-':
+            sinTelefono += 1
+    
+    print('\n\n\n ************* RESUMEN *************')
+    print('Direcciones analizadas: ' + str(len(listado)))
+    print('>>>>>> Con telefono: ' + str(len(listado) - sinTelefono))
+    print('>>>>>> Sin telefono:' + str(sinTelefono))
+
+
+hoja = input("Ingrese el nombre de la hoja: ")
+listado = todo(hoja)
+guardarDatos(listado, hoja)
+resumen(listado)
+
+
+
+print(' ========= EJECUCIÓN FINALIZADA ==========')
 
 
 
