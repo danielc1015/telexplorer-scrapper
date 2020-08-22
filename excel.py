@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-
+from openpyxl import Workbook
 
 def leerUnaHoja(hoja):
     sheet = ''
@@ -21,3 +21,8 @@ def guardarDatos(numeros, hoja):
         celda.value = tel
 
     workbook.save('datos.xlsx')
+
+
+def obtenerNombresSheets():
+    workbook = load_workbook('datos.xlsx', read_only=True)
+    return workbook.sheetnames

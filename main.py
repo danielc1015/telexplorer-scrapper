@@ -13,24 +13,38 @@ def resumen(listado):
     print('>>>>>> Con telefono: ' + str(len(listado) - sinTelefono))
     print('>>>>>> Sin telefono:' + str(sinTelefono))
 
+
+
 def mostrarMenu():
     opcion: int
-    print ('1. Buscar todas las hojas')
-    print ('2. Buscar una hoja')
+    print ('1. Buscar una hoja')
+    print ('2. Buscar todas las hojas')
     opcion = input('Opcion:  ')
+    return opcion
     
 
 
-mostrarMenu()
+def iniciarBusqueda(opcion):
+    if opcion == '1':
+        hoja = input("Ingrese el nombre de la hoja: ")
+        sheet = excel.leerUnaHoja(hoja)
+        listado = telexplorer.buscar(sheet)
+        excel.guardarDatos(listado, hoja)
 
-hoja = input("Ingrese el nombre de la hoja: ")
-sheet = excel.leerUnaHoja(hoja)
-listado = telexplorer.buscar(sheet)
-excel.guardarDatos(listado, hoja)
-resumen(listado)
+    if opcion == '2':
+        sheets = excel.obtenerNombresSheets()
+        for hoja in sheets:
+            sheet = excel.leerUnaHoja(hoja)
+            listado = telexplorer.buscar(sheet)
+            excel.guardarDatos(listado, hoja)
 
 
 
+
+
+opcion = mostrarMenu()
+iniciarBusqueda(opcion)
+# resumen(listado)
 print(' ========= EJECUCIÓN FINALIZADA ==========')
 
 
