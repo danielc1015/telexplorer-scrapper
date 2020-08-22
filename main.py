@@ -1,5 +1,7 @@
 import excel
 import telexplorer
+import threading
+import telefonos
 
 def resumen(listado):
     sinTelefono = 0
@@ -27,16 +29,16 @@ def mostrarMenu():
 def evaluarOpcion(opcion):
     if opcion == '1':
         hoja = input("Ingrese el nombre de la hoja: ")
-        realizarBusqueda(hoja)
+        iniciarBusqueda(hoja)
 
     if opcion == '2':
         sheets = excel.obtenerNombresSheets()
         for hoja in sheets:
-            realizarBusqueda(hoja)
+            iniciarBusqueda(hoja)
 
 
 
-def realizarBusqueda(hoja):
+def iniciarBusqueda(hoja):
     sheet = excel.leerUnaHoja(hoja)
     largo = len(sheet)
     mitad = int (largo / 2)
@@ -44,10 +46,18 @@ def realizarBusqueda(hoja):
     sheetMitad1 = sheet[0:(mitad)]
     sheetMitad2 = sheet[mitad:(largo)]
 
+    thread1 = threading.Thread(target=telexplorer.buscar, args=(sheetMitad1, 1))
+    thread2 = threading.Thread(target=telexplorer.buscar, args=(sheetMitad2, 2))
+    thread1.start()
+    thread2.start()
 
-    exit()
-    listado = telexplorer.buscar(sheet)
+    telefonosParte1 = thread1.join()
+    telefonosParte2 = thread2.join()
+
+    listado = telefonos.listado1 + telefonos.listado2
+
     excel.guardarDatos(listado, hoja)
+
 
 
 

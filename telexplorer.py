@@ -6,8 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import telefonos
 
-def buscar(sheet):
+
+def buscar(sheet, mitad):
     listaTelefonos = []
     
 
@@ -54,4 +56,9 @@ def buscar(sheet):
         driver.get('https://www.telexplorer.cl/')
 
     driver.close()
-    return listaTelefonos
+
+    if mitad == 1:
+        telefonos.listado1 = listaTelefonos
+    
+    if mitad == 2:
+        telefonos.listado2 = listaTelefonos
