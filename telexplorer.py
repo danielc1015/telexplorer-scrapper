@@ -16,7 +16,6 @@ def buscar(sheet, mitad):
     driver = webdriver.Chrome(executable_path="drivers/chromedriver")
     driver.get('https://www.telexplorer.cl/')
     for row in sheet:
-        print('Buscando ' + row[0].value + ' ' + str(row[1].value))
         actionChains = ActionChains(driver)
 
         cargada = False
@@ -48,10 +47,10 @@ def buscar(sheet, mitad):
             localidad.select_by_value('1057399')
 
             listaTelefonos.append(driver.find_element_by_class_name('resultado_telefono').text)
-            print('> Teléfono encontrado\n')
+            print(' > ' + row[0].value + ' ' + str(row[1].value) + ': Teléfono encontrado\n')
         except:
             listaTelefonos.append('-')
-            print('> Direccion sin teléfono\n')
+            print(' > ' + row[0].value + ' ' + str(row[1].value) + ': Direccion sin teléfono\n')
 
         driver.get('https://www.telexplorer.cl/')
 
