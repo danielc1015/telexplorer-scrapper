@@ -24,26 +24,25 @@ def mostrarMenu():
     
 
 
-def iniciarBusqueda(opcion):
+def evaluarOpcion(opcion):
     if opcion == '1':
         hoja = input("Ingrese el nombre de la hoja: ")
-        sheet = excel.leerUnaHoja(hoja)
-        listado = telexplorer.buscar(sheet)
-        excel.guardarDatos(listado, hoja)
+        realizarBusqueda(hoja)
 
     if opcion == '2':
         sheets = excel.obtenerNombresSheets()
         for hoja in sheets:
-            sheet = excel.leerUnaHoja(hoja)
-            listado = telexplorer.buscar(sheet)
-            excel.guardarDatos(listado, hoja)
+            realizarBusqueda(hoja)
 
 
-
+def realizarBusqueda(hoja):
+    sheet = excel.leerUnaHoja(hoja)
+    listado = telexplorer.buscar(sheet)
+    excel.guardarDatos(listado, hoja)
 
 
 opcion = mostrarMenu()
-iniciarBusqueda(opcion)
+evaluarOpcion(opcion)
 # resumen(listado)
 print(' ========= EJECUCIÓN FINALIZADA ==========')
 
