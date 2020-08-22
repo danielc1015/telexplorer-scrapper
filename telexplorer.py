@@ -53,4 +53,5 @@ def buscar(sheet):
 
         driver.get('https://www.telexplorer.cl/')
 
+    driver.close()
     return listaTelefonos
