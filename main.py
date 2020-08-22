@@ -54,7 +54,7 @@ def todo(hoja):
 
         try:
             localidad = Select(driver.find_element_by_id('localidad'))
-            localidad.select_by_value('1060419')
+            localidad.select_by_value('1057399')
 
             listaTelefonos.append(driver.find_element_by_class_name('resultado_telefono').text)
             print('> Teléfono encontrado\n')
