@@ -35,10 +35,20 @@ def evaluarOpcion(opcion):
             realizarBusqueda(hoja)
 
 
+
 def realizarBusqueda(hoja):
     sheet = excel.leerUnaHoja(hoja)
+    largo = len(sheet)
+    mitad = int (largo / 2)
+
+    sheetMitad1 = sheet[0:(mitad)]
+    sheetMitad2 = sheet[mitad:(largo)]
+
+
+    exit()
     listado = telexplorer.buscar(sheet)
     excel.guardarDatos(listado, hoja)
+
 
 
 opcion = mostrarMenu()
