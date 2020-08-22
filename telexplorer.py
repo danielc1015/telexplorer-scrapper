@@ -13,7 +13,7 @@ def buscar(sheet):
 
     driver = webdriver.Chrome(executable_path="drivers/chromedriver")
     driver.get('https://www.telexplorer.cl/')
-    for row in sheet.iter_rows():
+    for row in sheet:
         print('Buscando ' + row[0].value + ' ' + str(row[1].value))
         actionChains = ActionChains(driver)
 

@@ -6,7 +6,12 @@ def leerUnaHoja(hoja):
     try:
         workbook = load_workbook('datos.xlsx', read_only=False)
         sheet = workbook[hoja]
-        return sheet
+
+        arraySheet = []
+        for row in sheet.iter_rows():
+            arraySheet.append(row)
+
+        return arraySheet
     except:
         print('Nombre de hoja incorrecto. \n==== EJECUCIÓN FINALIZADA ====')
         exit()
