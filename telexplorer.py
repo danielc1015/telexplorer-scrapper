@@ -44,7 +44,7 @@ def buscar(sheet, mitad):
 
         try:
             localidad = Select(driver.find_element_by_id('localidad'))
-            localidad.select_by_value('1057399')
+            localidad.select_by_value('1060418')
 
             listaTelefonos.append(driver.find_element_by_class_name('resultado_telefono').text)
             print(' > ' + row[0].value + ' ' + str(row[1].value) + ': Teléfono encontrado\n')

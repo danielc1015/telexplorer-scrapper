@@ -39,6 +39,11 @@ def evaluarOpcion(opcion):
 
 
 def iniciarBusqueda(hoja):
+    print('\n\n\n\n\n\n\n\n')
+    print('*********************************************')
+    print( ' >>  HOJA: ' + hoja)
+    print('*********************************************')
+
     sheet = excel.leerUnaHoja(hoja)
     largo = len(sheet)
     mitad = int (largo / 2)
