@@ -22,8 +22,9 @@ def mostrarMenu():
     opcion: int
     print ('1. Buscar una hoja')
     print ('2. Buscar todas las hojas')
-    print ('3. Agregar Comuna')
-    print ('4. Cambiar Comuna')
+    print ('3. Buscar desde una hoja')
+    print ('4. Agregar Comuna')
+    print ('5. Cambiar Comuna')
     opcion = input('        Opcion:  ')
     return opcion
     
@@ -40,10 +41,23 @@ def evaluarOpcion(opcion):
             iniciarBusqueda(hoja)
     
     if opcion == '3':
+        print('\n\n')
+        sheets = excel.obtenerNombresSheets()
+        for hoja in sheets:
+            print(hoja)
+        desde = input(' >> Desde:  ')
+        buscar = False
+        for hoja in sheets:
+            if hoja == desde:
+                buscar = True
+            if buscar:
+                iniciarBusqueda(hoja)
+    
+    if opcion == '4':
         comunas.agregarComuna()
         main()
 
-    if opcion == '4':
+    if opcion == '5':
         listadoComunas = comunas.obtenerListadoComunas()
         comuna = input(' >> Comuna:  ')
         datos.comunaActual = comunas.cambiarComunaActual(listadoComunas, comuna)
