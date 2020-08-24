@@ -1,7 +1,8 @@
 import excel
 import telexplorer
 import threading
-import telefonos
+import datos
+import comunas
 
 def resumen(listado):
     sinTelefono = 0
@@ -21,7 +22,9 @@ def mostrarMenu():
     opcion: int
     print ('1. Buscar una hoja')
     print ('2. Buscar todas las hojas')
-    opcion = input('Opcion:  ')
+    print ('3. Agregar Comuna')
+    print ('4. Cambiar Comuna')
+    opcion = input('        Opcion:  ')
     return opcion
     
 
@@ -35,6 +38,16 @@ def evaluarOpcion(opcion):
         sheets = excel.obtenerNombresSheets()
         for hoja in sheets:
             iniciarBusqueda(hoja)
+    
+    if opcion == '3':
+        comunas.agregarComuna()
+        main()
+
+    if opcion == '4':
+        listadoComunas = comunas.obtenerListadoComunas()
+        comuna = input(' >> Comuna:  ')
+        datos.comunaActual = comunas.cambiarComunaActual(listadoComunas, comuna)
+        main()
 
 
 
@@ -59,16 +72,23 @@ def iniciarBusqueda(hoja):
     telefonosParte1 = thread1.join()
     telefonosParte2 = thread2.join()
 
-    listado = telefonos.listado1 + telefonos.listado2
+    listado = datos.listado1 + datos.listado2
 
     excel.guardarDatos(listado, hoja)
 
 
+def cargarComunaActual():
+    comunaActual = comunas.cargarArchivo()
+    print('Comuna seleccionada: ' + comunaActual['nombre'] + '\n')
+    datos.comunaActual = comunaActual
 
-
-opcion = mostrarMenu()
-evaluarOpcion(opcion)
+def main():
+    cargarComunaActual()
+    opcion = mostrarMenu()
+    evaluarOpcion(opcion)
 # resumen(listado)
+
+main()
 print(' ========= EJECUCIÓN FINALIZADA ==========')
 
 

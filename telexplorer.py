@@ -6,12 +6,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import telefonos
+import datos
 
 
 def buscar(sheet, mitad):
     listaTelefonos = []
-    
+    comunaActual = datos.comunaActual
 
     driver = webdriver.Chrome(executable_path="drivers/chromedriver")
     driver.get('https://www.telexplorer.cl/')
@@ -44,7 +44,7 @@ def buscar(sheet, mitad):
 
         try:
             localidad = Select(driver.find_element_by_id('localidad'))
-            localidad.select_by_value('1060418')
+            localidad.select_by_value(comunaActual)
 
             listaTelefonos.append(driver.find_element_by_class_name('resultado_telefono').text)
             print(' > ' + row[0].value + ' ' + str(row[1].value) + ': Teléfono encontrado\n')
@@ -57,7 +57,7 @@ def buscar(sheet, mitad):
     driver.close()
 
     if mitad == 1:
-        telefonos.listado1 = listaTelefonos
+        datos.listado1 = listaTelefonos
     
     if mitad == 2:
-        telefonos.listado2 = listaTelefonos
+        datos.listado2 = listaTelefonos
