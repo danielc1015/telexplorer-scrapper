@@ -99,6 +99,7 @@ def cargarComunaActual():
 def main():
     cargarComunaActual()
     opcion = mostrarMenu()
+    excel.seleccionarLibro()
     evaluarOpcion(opcion)
 # resumen(listado)
 
