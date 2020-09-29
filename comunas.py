@@ -3,6 +3,8 @@ import json
 
 
 def cargarArchivo():
+    if not os.path.isdir('datos'):
+        os.mkdir('datos')
     if os.path.isfile('appdata/comunas.json'):
         print('***********    Bienvenido de Nuevo!    ***********\n')
     else:
