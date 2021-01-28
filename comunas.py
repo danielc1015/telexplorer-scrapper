@@ -15,6 +15,7 @@ def cargarArchivo():
     return leerComunaActual()
 
 def crearArchivoNuevo():
+    os.mkdir('appdata')
     data = {}
     data['comunas'] = []
     data['comunas'].append({
