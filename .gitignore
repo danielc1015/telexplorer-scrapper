@@ -1,4 +1,5 @@
 datos.xlsx
-drivers/
+drivers/*
+datos/*
 datos/
 appdata/comunas.json
