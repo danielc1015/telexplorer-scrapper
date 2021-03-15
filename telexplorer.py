@@ -1,10 +1,10 @@
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from chrome import getChromeDriver
 
 import datos
 
@@ -13,7 +13,7 @@ def buscar(sheet, mitad):
     listaTelefonos = []
     comunaActual = datos.comunaActual
 
-    driver = webdriver.Chrome(executable_path="drivers/chromedriver")
+    driver = getChromeDriver()
     driver.get('https://www.telexplorer.cl/')
     for row in sheet:
         actionChains = ActionChains(driver)
